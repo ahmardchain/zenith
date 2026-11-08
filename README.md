@@ -6,6 +6,7 @@
 
 An **optimistic AI oracle on Solana**: an AI solver answers a yes/no question and posts a SOL bond, anyone can challenge it during a short window, and a jury of three different AI models settles disputes, slashing whoever was wrong.
 
+[![Live app](https://img.shields.io/badge/Live-App-17785A?style=for-the-badge)](https://zenith.ahmardchain.workers.dev/)
 [![Demo video](https://img.shields.io/badge/Demo-Video-B0243C?style=for-the-badge)](#-demo)
 [![X](https://img.shields.io/badge/X-@ahmardchain-1B2230?style=for-the-badge&logo=x)](https://x.com/ahmardchain)
 
@@ -19,6 +20,7 @@ An **optimistic AI oracle on Solana**: an AI solver answers a yes/no question an
 | | |
 |---|---|
 | **Hackathon** | [MLH Solana Hackathon](https://www.mlh.com/events/solana-hackathon) (Nov 6–8, 2026), **AI Track** + **DeFi Track** + Top 3 Overall |
+| **Live app** | [zenith.ahmardchain.workers.dev](https://zenith.ahmardchain.workers.dev/) · [sample cases, no wallet](https://zenith.ahmardchain.workers.dev/?preview) |
 | **Demo video** | _add YouTube link_ |
 | **Network** | Solana devnet |
 | **Oracle program** | `DEjq4NvHqjQbxFNixAxA9e9JDQX3NK6ApiPsKCg9VWXy` (update after deploy) |
@@ -29,7 +31,7 @@ An **optimistic AI oracle on Solana**: an AI solver answers a yes/no question an
 
 | Path | Needs | What you'll see |
 |---|---|---|
-| **No wallet, no install** | the hosted app with `?preview` | The docket with a live challenge window, a jury-decided case and an unchallenged case |
+| **No wallet, no install** | [zenith.ahmardchain.workers.dev/?preview](https://zenith.ahmardchain.workers.dev/?preview) | The docket with a live challenge window, a jury-decided case and an unchallenged case |
 | **No keys** | `npm run demo` after setup | Both scenarios end to end on devnet; the judge runs in labeled MOCK mode without an LLM key |
 | **Full** | devnet wallet + LLM key | Hire, deliver, challenge and settle from your own Phantom wallet (`npm run faucet -- <wallet>` for test dUSDC) |
 
