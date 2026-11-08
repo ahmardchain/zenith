@@ -373,6 +373,22 @@
       }
     },
     {
+      "name": "WorkSubmitted",
+      "type": {
+        "fields": [
+          {
+            "name": "job",
+            "type": "pubkey"
+          },
+          {
+            "name": "request",
+            "type": "pubkey"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
       "name": "JobSettled",
       "type": {
         "fields": [
@@ -387,22 +403,6 @@
           {
             "name": "amount",
             "type": "u64"
-          }
-        ],
-        "kind": "struct"
-      }
-    },
-    {
-      "name": "WorkSubmitted",
-      "type": {
-        "fields": [
-          {
-            "name": "job",
-            "type": "pubkey"
-          },
-          {
-            "name": "request",
-            "type": "pubkey"
           }
         ],
         "kind": "struct"
@@ -487,19 +487,6 @@
     },
     {
       "discriminator": [
-        130,
-        105,
-        205,
-        34,
-        87,
-        86,
-        152,
-        27
-      ],
-      "name": "JobSettled"
-    },
-    {
-      "discriminator": [
         136,
         185,
         210,
@@ -510,6 +497,19 @@
         125
       ],
       "name": "WorkSubmitted"
+    },
+    {
+      "discriminator": [
+        130,
+        105,
+        205,
+        34,
+        87,
+        86,
+        152,
+        27
+      ],
+      "name": "JobSettled"
     }
   ]
 }

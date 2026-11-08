@@ -3,6 +3,7 @@ name = "zenith-oracle"
 version = "0.1.0"
 description = "Optimistic AI oracle: bonded AI verdicts, open challenge window, multi-model jury, slashing"
 edition = "2021"
+rust-version = "1.84"
 
 [lib]
 crate-type = ["cdylib", "lib"]

@@ -664,6 +664,26 @@
       }
     },
     {
+      "name": "Challenged",
+      "type": {
+        "fields": [
+          {
+            "name": "request",
+            "type": "pubkey"
+          },
+          {
+            "name": "challenger",
+            "type": "pubkey"
+          },
+          {
+            "name": "verdict",
+            "type": "u8"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
       "name": "Finalized",
       "type": {
         "fields": [
@@ -710,26 +730,6 @@
           {
             "name": "challenge_deadline",
             "type": "i64"
-          }
-        ],
-        "kind": "struct"
-      }
-    },
-    {
-      "name": "Challenged",
-      "type": {
-        "fields": [
-          {
-            "name": "request",
-            "type": "pubkey"
-          },
-          {
-            "name": "challenger",
-            "type": "pubkey"
-          },
-          {
-            "name": "verdict",
-            "type": "u8"
           }
         ],
         "kind": "struct"
@@ -855,6 +855,19 @@
   "events": [
     {
       "discriminator": [
+        208,
+        48,
+        104,
+        229,
+        231,
+        85,
+        175,
+        193
+      ],
+      "name": "Challenged"
+    },
+    {
+      "discriminator": [
         4,
         77,
         242,
@@ -878,19 +891,6 @@
         153
       ],
       "name": "Proposed"
-    },
-    {
-      "discriminator": [
-        208,
-        48,
-        104,
-        229,
-        231,
-        85,
-        175,
-        193
-      ],
-      "name": "Challenged"
     },
     {
       "discriminator": [

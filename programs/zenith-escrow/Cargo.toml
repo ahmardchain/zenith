@@ -3,6 +3,7 @@ name = "zenith-escrow"
 version = "0.1.0"
 description = "Job escrow settled by Zenith oracle verdicts"
 edition = "2021"
+rust-version = "1.84"
 
 [lib]
 crate-type = ["cdylib", "lib"]
