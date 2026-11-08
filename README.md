@@ -7,7 +7,7 @@
 An **optimistic AI oracle on Solana**: an AI solver answers a yes/no question and posts a SOL bond, anyone can challenge it during a short window, and a jury of three different AI models settles disputes, slashing whoever was wrong.
 
 [![Live app](https://img.shields.io/badge/Live-App-17785A?style=for-the-badge)](https://zenith.ahmardchain.workers.dev/)
-[![Demo video](https://img.shields.io/badge/Demo-Video-B0243C?style=for-the-badge)](#-demo)
+[![Demo video](https://img.shields.io/badge/Demo-Video-B0243C?style=for-the-badge&logo=youtube)](https://youtu.be/nwTsIB4K4So)
 [![X](https://img.shields.io/badge/X-@ahmardchain-1B2230?style=for-the-badge&logo=x)](https://x.com/ahmardchain)
 
 ![Solana](https://img.shields.io/badge/Solana-devnet-9945FF?style=flat-square&logo=solana)
@@ -21,7 +21,7 @@ An **optimistic AI oracle on Solana**: an AI solver answers a yes/no question an
 |---|---|
 | **Hackathon** | [MLH Solana Hackathon](https://www.mlh.com/events/solana-hackathon) (Nov 6–8, 2026), **AI Track** + **DeFi Track** + Top 3 Overall |
 | **Live app** | [zenith.ahmardchain.workers.dev](https://zenith.ahmardchain.workers.dev/) · [sample cases, no wallet](https://zenith.ahmardchain.workers.dev/?preview) |
-| **Demo video** | _add YouTube link_ |
+| **Demo video** | [youtu.be/nwTsIB4K4So](https://youtu.be/nwTsIB4K4So) (2:35) |
 | **Network** | Solana devnet |
 | **Oracle program** | [`BwhUSJMFrZbK6Ac4vydsEDYSSz3FZSAdLehBoF7C42mj`](https://explorer.solana.com/address/BwhUSJMFrZbK6Ac4vydsEDYSSz3FZSAdLehBoF7C42mj?cluster=devnet) |
 | **Escrow program** | [`ERkb4H2QoMxBwqKuxStXEsJXUF2idiDRnpkRPWapV46Y`](https://explorer.solana.com/address/ERkb4H2QoMxBwqKuxStXEsJXUF2idiDRnpkRPWapV46Y?cluster=devnet) |
@@ -57,7 +57,9 @@ On Ethereum, ORA's onchain AI oracle fixed this with an *optimistic* design: res
 
 ## 🎬 Demo
 
-_Video link goes here._
+[![Watch the Zenith demo](docs/demo-thumbnail.jpg)](https://youtu.be/nwTsIB4K4So)
+
+**[Watch the 2:35 demo on YouTube](https://youtu.be/nwTsIB4K4So)**: stickman explainer, then the real devnet run and the on-chain proof.
 
 **What the demo shows:**
 
