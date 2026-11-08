@@ -414,7 +414,16 @@ $<HTMLAnchorElement>("#oracle-link").href = explorer(deployment.oracle);
 $<HTMLAnchorElement>("#escrow-link").href = explorer(deployment.escrow);
 $("#cluster").textContent = cluster;
 updateCounts();
-if (new URLSearchParams(location.search).has("preview")) {
+const params = new URLSearchParams(location.search);
+if (params.has("replay")) {
+  // Replays the real devnet attack case (request 9kgX…ywSt, 8 Nov 2026) stage by stage.
+  const { replayData } = await import("./replay");
+  ({ jobs, requests } = replayData(Number(params.get("replay"))));
+  $("#cluster").textContent = "devnet replay · 8 Nov";
+  toast("Replay of a real devnet run: request 9kgX…ywSt and three earlier jobs, with their on-chain values.");
+  renderJobsSelect();
+  render();
+} else if (params.has("preview")) {
   const { previewData } = await import("./preview");
   ({ jobs, requests } = previewData());
   $("#cluster").textContent = "preview data";
