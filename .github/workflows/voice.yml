@@ -16,12 +16,12 @@ jobs:
       - run: sudo apt-get update -qq && sudo apt-get install -y -qq espeak-ng
       - run: pip install -q torch --index-url https://download.pytorch.org/whl/cpu
       - run: pip install -q "kokoro>=0.9" soundfile
-      - run: python video/tts.py af_heart
+      - run: python video/tts.py af_heart > video/tts.log 2>&1 || echo TTS_FAILED >> video/tts.log
       - uses: actions/upload-artifact@v4
-        with: { name: voice, path: video/voice }
+        with: { name: voice, path: video }
       - run: |
           git config user.name "AHMARD"
           git config user.email "ahmadameen7471@gmail.com"
-          git add video/voice
-          git commit -m "Video: voiceover (Kokoro af_heart) [skip ci]"
+          git add video/tts.log video/voice || git add video/tts.log
+          git commit -m "Video: voiceover run (Kokoro af_heart) [skip ci]"
           git push
