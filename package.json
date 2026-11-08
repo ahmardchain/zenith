@@ -1,8 +1,8 @@
 {
-  "name": "verdict",
+  "name": "zenith",
   "version": "0.1.0",
   "private": true,
-  "description": "Verdict: an optimistic AI oracle on Solana. Bonded AI answers, open challenges, multi-model jury, slashing.",
+  "description": "Zenith: an optimistic AI oracle on Solana. Bonded AI answers, open challenges, multi-model jury, slashing.",
   "type": "module",
   "scripts": {
     "idl": "node scripts/build-idl.mjs",
@@ -13,7 +13,9 @@
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test:unit": "tsx --test node/llm.test.ts",
     "faucet": "tsx node/faucet.ts",
-    "test:anchor": "anchor test --provider.cluster localnet"
+    "test:anchor": "anchor test --provider.cluster localnet",
+    "build:web": "npm --prefix app ci && npm --prefix app run build",
+    "deploy:web": "npm run build:web && npx wrangler@4 pages deploy app/dist --project-name zenith-oracle --branch main"
   },
   "dependencies": {
     "@coral-xyz/anchor": "0.32.1",

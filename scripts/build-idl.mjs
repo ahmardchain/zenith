@@ -6,7 +6,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const root = resolve(import.meta.dirname, "..");
-const programs = ["verdict-oracle", "verdict-escrow"];
+const programs = ["zenith-oracle", "zenith-escrow"];
 mkdirSync(`${root}/target/idl`, { recursive: true });
 
 for (const p of programs) {

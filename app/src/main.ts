@@ -4,8 +4,8 @@ import { getAssociatedTokenAddressSync } from "@solana/spl-token";
 import { Buffer } from "buffer";
 import { Connection, LAMPORTS_PER_SOL, PublicKey, Transaction, VersionedTransaction } from "@solana/web3.js";
 import deployment from "./deployment.json";
-import oracleIdlJson from "../../target/idl/verdict_oracle.json";
-import escrowIdlJson from "../../target/idl/verdict_escrow.json";
+import oracleIdlJson from "../../target/idl/zenith_oracle.json";
+import escrowIdlJson from "../../target/idl/zenith_escrow.json";
 
 // ---------------------------------------------------------------- setup
 const oracleIdl = { ...(oracleIdlJson as Idl), address: deployment.oracle } as Idl;

@@ -1,11 +1,11 @@
-# MLH Solana Hackathon submission kit — Verdict
+# MLH Solana Hackathon submission kit — Zenith
 
 ## Checklist
 - [ ] Registered on MLH and checked in
 - [ ] Programs deployed to devnet; addresses + explorer links in README
 - [ ] `npm run demo` run once on devnet; explorer links from the attack scenario saved
 - [ ] Demo video (~2:30, see DEMO-SCRIPT.md) uploaded to YouTube, linked in README
-- [ ] Repo public on GitHub (ahmardchain/verdict)
+- [ ] Repo public on GitHub (ahmardchain/zenith)
 - [ ] Initial submission on MLH Challenges by **4:00 PM Lagos** (10:00 AM ET)
 - [ ] Final submission by **5:45 PM Lagos** (11:45 AM ET)
 - [ ] Categories selected: AI Track, DeFi Track (Top 3 Overall is automatic)
@@ -13,7 +13,7 @@
 
 ## Form answers
 
-**Name:** Verdict
+**Name:** Zenith
 
 **Tagline:** AI answers you can challenge. Wrong answers lose their bond.
 
@@ -33,7 +33,7 @@
 
 Smart contracts can't judge work, so "AI + crypto" usually means one server and one model deciding. One prompt injection and it's over.
 
-I built Verdict for @MLHacks x @solana: an optimistic AI oracle.
+I built Zenith for @MLHacks x @solana: an optimistic AI oracle.
 • AI answers with a SOL bond
 • anyone can challenge within 60s
 • 3 different models judge disputes

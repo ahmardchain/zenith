@@ -1,6 +1,6 @@
 <div align="center">
 
-# ⚖️ Verdict
+# ⚖️ Zenith
 
 ### AI answers you can challenge. Wrong answers lose their bond.
 
@@ -41,7 +41,7 @@ Smart contracts can't read a PDF, judge a design, or tell whether a freelancer a
 
 On Ethereum, ORA's onchain AI oracle fixed this with an *optimistic* design: results are posted with a challenge period and can be disputed. Solana had LLM oracles, but no one had built the optimistic, slashable version, even though Solana's sub-second blocks and sub-cent fees make 60-second challenge windows practical in a way they aren't on L1 Ethereum.
 
-**Verdict brings optimistic, slashable AI judgment to Solana**, and shows it working inside a real escrow:
+**Zenith brings optimistic, slashable AI judgment to Solana**, and shows it working inside a real escrow:
 
 - ✅ Any program can ask a yes/no question that needs judgment
 - ✅ AI solvers answer with money at stake (a SOL bond)
@@ -76,7 +76,7 @@ Run it yourself with `npm run demo` after setup (see [Getting started](#-getting
 
 ## ✨ Core features
 
-### ⚖️ Optimistic AI oracle (`programs/verdict-oracle`)
+### ⚖️ Optimistic AI oracle (`programs/zenith-oracle`)
 
 | Instruction | Who | What happens |
 |---|---|---|
@@ -88,7 +88,7 @@ Run it yourself with `npm run demo` after setup (see [Getting started](#-getting
 | `expire_dispute` | anyone, after the jury timeout | Safety valve: both bonds and the reward are refunded |
 | `cancel_request` | requester | Withdraws an unanswered request |
 
-### 💸 AI-settled escrow (`programs/verdict-escrow`)
+### 💸 AI-settled escrow (`programs/zenith-escrow`)
 
 - Client locks any SPL token (Token or Token-2022) with a written spec.
 - Freelancer opens an oracle request **in the same transaction** they attach it, so no solver can answer before it's bound to the job.
@@ -129,8 +129,8 @@ flowchart TB
     C[Docket: watch, challenge, settle]
   end
   subgraph Chain["Solana programs"]
-    E[verdict-escrow<br/>Job + vault PDA]
-    O[verdict-oracle<br/>Config + Request PDAs]
+    E[zenith-escrow<br/>Job + vault PDA]
+    O[zenith-oracle<br/>Config + Request PDAs]
     E -- reads Request account --> O
   end
   subgraph Nodes["Off-chain nodes"]
@@ -176,7 +176,7 @@ sequenceDiagram
 
 ✅ **Optimistic + economic security.** One solver answers cheaply. The jury only runs when someone is willing to put money behind a disagreement. Lying costs the bond; catching a liar earns it. A single honest watcher is enough to keep solvers honest.
 
-The payout that enforces it ([`vote`](programs/verdict-oracle/src/lib.rs)):
+The payout that enforces it ([`vote`](programs/zenith-oracle/src/lib.rs)):
 
 ```rust
 let tally = request.votes.iter().filter(|v| **v == verdict).count() as u8;
@@ -191,7 +191,7 @@ let payout = request.reward + request.bond * 2;   // checked math in source
 move_lamports(&request.to_account_info(), &winner_info, payout)?;
 ```
 
-And how any program composes with it, without a crate dependency ([`OracleRequest::load`](programs/verdict-escrow/src/lib.rs)):
+And how any program composes with it, without a crate dependency ([`OracleRequest::load`](programs/zenith-escrow/src/lib.rs)):
 
 ```rust
 require_keys_eq!(*info.owner, ORACLE_PROGRAM_ID, EscrowError::NotOracleAccount);
@@ -219,7 +219,7 @@ OracleRequest::deserialize(&mut &data[8..])
 
 ## 🏆 Hackathon criteria
 
-| Criterion | How Verdict meets it |
+| Criterion | How Zenith meets it |
 |---|---|
 | **Top 3 Overall:** a working product using Solana for what it's good at | Fast blocks make short challenge windows viable; cheap fees make bonds and challenges small; PDAs escrow funds; programs compose by reading accounts |
 | **AI Track:** AI and Solana each do real work | AI judges the work; Solana makes the AI's answer accountable (bonds, slashing, a jury). Hits the track's *verifiable AI* and *security tools* ideas |
@@ -260,6 +260,12 @@ cd app && npm run dev     # open http://localhost:5173
 npm run faucet -- <your wallet>   # test dUSDC + SOL for a judge's wallet
 ```
 
+**Host the web app on Cloudflare Pages** (free):
+
+- From your machine: `npx wrangler login` once, then `npm run deploy:web`. It builds `app/` and publishes it as the `zenith-oracle` Pages project.
+- Or from GitHub: Cloudflare dashboard → Workers & Pages → Create → Pages → Connect to Git → pick this repo. Build command `npm run build:web`, output directory `app/dist`. Every push redeploys.
+- After `npm run setup`, commit the generated `app/src/deployment.json` so the hosted app points at your devnet programs. `?preview` works before that.
+
 **Tests:** `cargo test` (Rust), `npm run test:unit` (judge logic), `anchor test --provider.cluster localnet` (end-to-end on a local validator).
 
 ### Environment variables
@@ -277,8 +283,8 @@ npm run faucet -- <your wallet>   # test dUSDC + SOL for a judge's wallet
 
 ```
 programs/
-  verdict-oracle/   optimistic AI oracle: requests, bonds, challenges, jury, slashing
-  verdict-escrow/   SPL escrow settled by oracle verdicts (reads oracle accounts directly)
+  zenith-oracle/   optimistic AI oracle: requests, bonds, challenges, jury, slashing
+  zenith-escrow/   SPL escrow settled by oracle verdicts (reads oracle accounts directly)
 node/
   llm.ts            judging prompts, OpenAI-compatible client, MOCK judge
   nodes.ts          solver / watcher / jury / keeper loops

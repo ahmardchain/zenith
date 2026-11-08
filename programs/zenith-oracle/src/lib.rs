@@ -1,4 +1,4 @@
-//! Verdict — an optimistic AI oracle for Solana.
+//! Zenith — an optimistic AI oracle for Solana.
 //!
 //! Anyone can ask a yes/no question that needs judgment (for example
 //! "does this deliverable meet the spec?"). An AI solver answers by posting
@@ -9,7 +9,7 @@
 //! votes; the majority side takes the reward plus the loser's slashed bond.
 //!
 //! Consumer programs read a FINALIZED `Request` account directly
-//! (see `verdict-escrow`), so any Solana program can compose with it.
+//! (see `zenith-escrow`), so any Solana program can compose with it.
 
 use anchor_lang::prelude::*;
 use anchor_lang::system_program::{transfer, Transfer};
@@ -35,7 +35,7 @@ pub const CONFIG_SEED: &[u8] = b"config";
 pub const REQUEST_SEED: &[u8] = b"request";
 
 #[program]
-pub mod verdict_oracle {
+pub mod zenith_oracle {
     use super::*;
 
     /// One-time setup of the oracle parameters and the juror set.

@@ -1,14 +1,14 @@
-//! Verdict Escrow — a job escrow whose payout is decided by the Verdict oracle.
+//! Zenith Escrow — a job escrow whose payout is decided by the Zenith oracle.
 //!
 //! 1. Client locks tokens (e.g. USDC) for a job with a short written spec.
-//! 2. Freelancer delivers: they open a Verdict oracle request whose prompt is
+//! 2. Freelancer delivers: they open a Zenith oracle request whose prompt is
 //!    "SPEC: <spec>\nDELIVERABLE: <work>" bound to this job, and attach it.
 //! 3. The oracle's optimistic AI game decides YES (meets spec) or NO.
 //! 4. Anyone cranks `settle`: YES pays the freelancer, NO refunds the client.
 //!
 //! The escrow reads oracle `Request` accounts directly (owner + discriminator
 //! check, then Borsh decode) — no crate dependency — which is how any Solana
-//! program can compose with Verdict.
+//! program can compose with Zenith.
 
 use anchor_lang::prelude::*;
 use anchor_spl::token_interface::{
@@ -17,7 +17,7 @@ use anchor_spl::token_interface::{
 
 declare_id!("BfcuGfS8XsYbKR5UCSXKuV74HgPQWfWhRUYcXXwq933p");
 
-/// Program ID of the deployed Verdict oracle. Update after `anchor keys sync`
+/// Program ID of the deployed Zenith oracle. Update after `anchor keys sync`
 /// (`npm run sync-ids` does this for you).
 pub const ORACLE_PROGRAM_ID: Pubkey =
     anchor_lang::pubkey!("DEjq4NvHqjQbxFNixAxA9e9JDQX3NK6ApiPsKCg9VWXy");
@@ -31,7 +31,7 @@ pub const STATUS_CANCELLED: u8 = 4;
 pub const VERDICT_YES: u8 = 1;
 pub const VERDICT_NO: u8 = 2;
 
-/// Mirror of `verdict_oracle::Request` (same field order and types).
+/// Mirror of `zenith_oracle::Request` (same field order and types).
 #[derive(AnchorDeserialize, AnchorSerialize, Clone, Debug)]
 pub struct OracleRequest {
     pub requester: Pubkey,
@@ -86,7 +86,7 @@ pub fn expected_prompt_prefix(spec: &str) -> String {
 }
 
 #[program]
-pub mod verdict_escrow {
+pub mod zenith_escrow {
     use super::*;
 
     pub fn create_job(
@@ -285,7 +285,7 @@ pub struct Job {
     pub amount: u64,
     pub deadline: i64,
     pub status: u8,
-    /// The Verdict oracle request judging this job (default until submitted).
+    /// The Zenith oracle request judging this job (default until submitted).
     pub request: Pubkey,
     pub bump: u8,
     pub vault_bump: u8,
@@ -416,7 +416,7 @@ pub struct JobSettled {
 
 #[error_code]
 pub enum EscrowError {
-    #[msg("Account is not a Verdict oracle request")]
+    #[msg("Account is not a Zenith oracle request")]
     NotOracleAccount,
     #[msg("Amount must be greater than zero")]
     ZeroAmount,
@@ -451,9 +451,9 @@ mod tests {
     #[test]
     fn mirror_matches_oracle_layout() {
         use anchor_lang::{AccountSerialize, Discriminator};
-        assert_eq!(verdict_oracle::Request::DISCRIMINATOR, REQUEST_DISCRIMINATOR);
-        assert_eq!(verdict_oracle::ID, ORACLE_PROGRAM_ID);
-        let r = verdict_oracle::Request {
+        assert_eq!(zenith_oracle::Request::DISCRIMINATOR, REQUEST_DISCRIMINATOR);
+        assert_eq!(zenith_oracle::ID, ORACLE_PROGRAM_ID);
+        let r = zenith_oracle::Request {
             requester: Pubkey::new_unique(),
             request_id: 7,
             subject: Pubkey::new_unique(),
@@ -462,7 +462,7 @@ mod tests {
             window_secs: 3,
             jury_timeout_secs: 4,
             created_at: 5,
-            status: verdict_oracle::STATUS_FINALIZED,
+            status: zenith_oracle::STATUS_FINALIZED,
             proposer: Pubkey::new_unique(),
             proposed_verdict: 1,
             proposed_at: 6,
@@ -470,7 +470,7 @@ mod tests {
             challenged_verdict: 2,
             challenged_at: 8,
             votes: [2, 2, 0],
-            final_verdict: verdict_oracle::VERDICT_NO,
+            final_verdict: zenith_oracle::VERDICT_NO,
             winner: Pubkey::new_unique(),
             finalized_at: 9,
             bump: 254,
@@ -480,7 +480,7 @@ mod tests {
         };
         let mut data = Vec::new();
         r.try_serialize(&mut data).unwrap();
-        data.resize(8 + verdict_oracle::Request::INIT_SPACE, 0); // real accounts are padded
+        data.resize(8 + zenith_oracle::Request::INIT_SPACE, 0); // real accounts are padded
         let mut lamports = 0u64;
         let key = Pubkey::new_unique();
         let info = AccountInfo::new(

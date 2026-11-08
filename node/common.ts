@@ -1,4 +1,4 @@
-// Shared Solana plumbing for the Verdict nodes, setup and demo scripts.
+// Shared Solana plumbing for the Zenith nodes, setup and demo scripts.
 import "dotenv/config";
 import anchor, { type Idl } from "@coral-xyz/anchor";
 import { Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
@@ -14,8 +14,8 @@ import { fileURLToPath } from "node:url";
 export const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 export const KEYS_DIR = resolve(ROOT, "keys");
 
-export const oracleIdl = JSON.parse(readFileSync(resolve(ROOT, "target/idl/verdict_oracle.json"), "utf8")) as Idl;
-export const escrowIdl = JSON.parse(readFileSync(resolve(ROOT, "target/idl/verdict_escrow.json"), "utf8")) as Idl;
+export const oracleIdl = JSON.parse(readFileSync(resolve(ROOT, "target/idl/zenith_oracle.json"), "utf8")) as Idl;
+export const escrowIdl = JSON.parse(readFileSync(resolve(ROOT, "target/idl/zenith_escrow.json"), "utf8")) as Idl;
 export const ORACLE_ID = new PublicKey(oracleIdl.address);
 export const ESCROW_ID = new PublicKey(escrowIdl.address);
 

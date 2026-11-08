@@ -1,7 +1,7 @@
 {
   "address": "DEjq4NvHqjQbxFNixAxA9e9JDQX3NK6ApiPsKCg9VWXy",
   "metadata": {
-    "name": "verdict_oracle",
+    "name": "zenith_oracle",
     "version": "0.1.0",
     "spec": "0.1.0",
     "description": "Optimistic AI oracle: bonded AI verdicts, open challenge window, multi-model jury, slashing"
@@ -664,26 +664,6 @@
       }
     },
     {
-      "name": "Challenged",
-      "type": {
-        "fields": [
-          {
-            "name": "request",
-            "type": "pubkey"
-          },
-          {
-            "name": "challenger",
-            "type": "pubkey"
-          },
-          {
-            "name": "verdict",
-            "type": "u8"
-          }
-        ],
-        "kind": "struct"
-      }
-    },
-    {
       "name": "Finalized",
       "type": {
         "fields": [
@@ -736,7 +716,7 @@
       }
     },
     {
-      "name": "RequestCreated",
+      "name": "Challenged",
       "type": {
         "fields": [
           {
@@ -744,16 +724,12 @@
             "type": "pubkey"
           },
           {
-            "name": "requester",
+            "name": "challenger",
             "type": "pubkey"
           },
           {
-            "name": "subject",
-            "type": "pubkey"
-          },
-          {
-            "name": "reward",
-            "type": "u64"
+            "name": "verdict",
+            "type": "u8"
           }
         ],
         "kind": "struct"
@@ -774,6 +750,30 @@
           {
             "name": "verdict",
             "type": "u8"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "RequestCreated",
+      "type": {
+        "fields": [
+          {
+            "name": "request",
+            "type": "pubkey"
+          },
+          {
+            "name": "requester",
+            "type": "pubkey"
+          },
+          {
+            "name": "subject",
+            "type": "pubkey"
+          },
+          {
+            "name": "reward",
+            "type": "u64"
           }
         ],
         "kind": "struct"
@@ -855,19 +855,6 @@
   "events": [
     {
       "discriminator": [
-        208,
-        48,
-        104,
-        229,
-        231,
-        85,
-        175,
-        193
-      ],
-      "name": "Challenged"
-    },
-    {
-      "discriminator": [
         4,
         77,
         242,
@@ -894,16 +881,16 @@
     },
     {
       "discriminator": [
-        102,
-        44,
-        0,
-        225,
-        163,
-        110,
-        167,
-        187
+        208,
+        48,
+        104,
+        229,
+        231,
+        85,
+        175,
+        193
       ],
-      "name": "RequestCreated"
+      "name": "Challenged"
     },
     {
       "discriminator": [
@@ -917,6 +904,19 @@
         130
       ],
       "name": "Voted"
+    },
+    {
+      "discriminator": [
+        102,
+        44,
+        0,
+        225,
+        163,
+        110,
+        167,
+        187
+      ],
+      "name": "RequestCreated"
     }
   ]
 }

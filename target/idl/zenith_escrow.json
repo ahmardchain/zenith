@@ -1,10 +1,10 @@
 {
   "address": "BfcuGfS8XsYbKR5UCSXKuV74HgPQWfWhRUYcXXwq933p",
   "metadata": {
-    "name": "verdict_escrow",
+    "name": "zenith_escrow",
     "version": "0.1.0",
     "spec": "0.1.0",
-    "description": "Job escrow settled by Verdict oracle verdicts"
+    "description": "Job escrow settled by Zenith oracle verdicts"
   },
   "instructions": [
     {
@@ -329,7 +329,7 @@
           {
             "name": "request",
             "docs": [
-              "The Verdict oracle request judging this job (default until submitted)."
+              "The Zenith oracle request judging this job (default until submitted)."
             ],
             "type": "pubkey"
           },
@@ -413,7 +413,7 @@
     {
       "code": 6000,
       "name": "NotOracleAccount",
-      "msg": "Account is not a Verdict oracle request"
+      "msg": "Account is not a Zenith oracle request"
     },
     {
       "code": 6001,

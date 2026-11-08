@@ -6,12 +6,12 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-verdict_oracle = "DEjq4NvHqjQbxFNixAxA9e9JDQX3NK6ApiPsKCg9VWXy"
-verdict_escrow = "BfcuGfS8XsYbKR5UCSXKuV74HgPQWfWhRUYcXXwq933p"
+zenith_oracle = "DEjq4NvHqjQbxFNixAxA9e9JDQX3NK6ApiPsKCg9VWXy"
+zenith_escrow = "BfcuGfS8XsYbKR5UCSXKuV74HgPQWfWhRUYcXXwq933p"
 
 [programs.devnet]
-verdict_oracle = "DEjq4NvHqjQbxFNixAxA9e9JDQX3NK6ApiPsKCg9VWXy"
-verdict_escrow = "BfcuGfS8XsYbKR5UCSXKuV74HgPQWfWhRUYcXXwq933p"
+zenith_oracle = "DEjq4NvHqjQbxFNixAxA9e9JDQX3NK6ApiPsKCg9VWXy"
+zenith_escrow = "BfcuGfS8XsYbKR5UCSXKuV74HgPQWfWhRUYcXXwq933p"
 
 [provider]
 cluster = "devnet"

@@ -1,4 +1,4 @@
-// AI judging for Verdict nodes. Talks to any OpenAI-compatible chat endpoint;
+// AI judging for Zenith nodes. Talks to any OpenAI-compatible chat endpoint;
 // with no API key it falls back to a deterministic heuristic (MOCK mode).
 
 export type Verdict = "YES" | "NO";

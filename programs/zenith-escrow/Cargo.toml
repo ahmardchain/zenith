@@ -1,12 +1,12 @@
 [package]
-name = "verdict-escrow"
+name = "zenith-escrow"
 version = "0.1.0"
-description = "Job escrow settled by Verdict oracle verdicts"
+description = "Job escrow settled by Zenith oracle verdicts"
 edition = "2021"
 
 [lib]
 crate-type = ["cdylib", "lib"]
-name = "verdict_escrow"
+name = "zenith_escrow"
 
 [features]
 default = []
@@ -24,4 +24,4 @@ anchor-lang = "0.32.1"
 anchor-spl = "0.32.1"
 
 [dev-dependencies]
-verdict-oracle = { path = "../verdict-oracle", features = ["cpi"] }
+zenith-oracle = { path = "../zenith-oracle", features = ["cpi"] }

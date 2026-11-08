@@ -11,8 +11,8 @@ import { expect } from "chai";
 
 const provider = anchor.AnchorProvider.env();
 anchor.setProvider(provider);
-const oracle = anchor.workspace.VerdictOracle as Program;
-const escrow = anchor.workspace.VerdictEscrow as Program;
+const oracle = anchor.workspace.ZenithOracle as Program;
+const escrow = anchor.workspace.ZenithEscrow as Program;
 const conn = provider.connection;
 const admin = (provider.wallet as anchor.Wallet).payer;
 
@@ -67,7 +67,7 @@ async function settle(job: PublicKey, request: PublicKey) {
     .rpc();
 }
 
-describe("verdict", () => {
+describe("zenith", () => {
   before(async () => {
     for (const k of [solver, watcher, client, freelancer, ...jurors]) {
       const sig = await conn.requestAirdrop(k.publicKey, 2 * LAMPORTS_PER_SOL);
