@@ -30,6 +30,8 @@ An **optimistic AI oracle on Solana**: an AI solver answers a yes/no question an
 
 ## ⏱️ Verify in 2 minutes
 
+> **On-chain proof:** the [attack case](https://explorer.solana.com/address/9kgXU3jN64FTr7r5qvB12HYj5QTMS5oG7sgWomXeywSt?cluster=devnet) on devnet: the solver said YES to a prompt injection, a watcher challenged, jurors voted NO / NO, the solver's 0.05 SOL bond was slashed and the client refunded. All cases: [docs/DEVNET-PROOF.md](docs/DEVNET-PROOF.md).
+
 | Path | Needs | What you'll see |
 |---|---|---|
 | **No wallet, no install** | [zenith.ahmardchain.workers.dev/?preview](https://zenith.ahmardchain.workers.dev/?preview) | The docket with a live challenge window, a jury-decided case and an unchallenged case |
@@ -214,7 +216,7 @@ OracleRequest::deserialize(&mut &data[8..])
 |---|---|
 | Oracle + escrow programs (Rust/Anchor) | ✅ Real, compile clean; Rust tests verify the escrow decodes real oracle account data |
 | Instruction encoding, PDAs, tx sizes | ✅ Verified offline against the generated IDLs |
-| End-to-end flow on a validator | 🛠️ `tests/verdict.ts` (unchallenged path, disputed path with slashing, guard rails); run with `anchor test` |
+| End-to-end flow on devnet | ✅ Ran on devnet: 3 honest jobs paid, 1 prompt-injection attack challenged, jury NO/NO, solver slashed, client refunded. Every case with explorer links in [docs/DEVNET-PROOF.md](docs/DEVNET-PROOF.md) |
 | Devnet deployment | ✅ Both programs live on devnet: [oracle](https://explorer.solana.com/address/BwhUSJMFrZbK6Ac4vydsEDYSSz3FZSAdLehBoF7C42mj?cluster=devnet), [escrow](https://explorer.solana.com/address/ERkb4H2QoMxBwqKuxStXEsJXUF2idiDRnpkRPWapV46Y?cluster=devnet) |
 | LLM judging | ✅ Real when `LLM_API_KEY` is set. Otherwise a labeled **MOCK** heuristic judge (keyword coverage + injection detection) for offline rehearsal |
 | Jury decentralization | 🛠️ Three separate keys and three model families, but in this demo one operator runs all three |
