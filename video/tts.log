@@ -5,7 +5,7 @@ Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF
   WeightNorm.apply(module, name, dim)
 Collecting en-core-web-sm==3.8.0
   Downloading en_core_web_sm-3.8.0-py3-none-any.whl (12.8 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.8/12.8 MB 94.3 MB/s  0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.8/12.8 MB 38.4 MB/s  0:00:00
 Installing collected packages: en-core-web-sm
 Successfully installed en-core-web-sm-3.8.0
 
@@ -16,34 +16,15 @@ Successfully installed en-core-web-sm-3.8.0
 WARNING: Defaulting repo_id to hexgrad/Kokoro-82M. Pass repo_id='hexgrad/Kokoro-82M' to suppress this warning.
 [38;5;2m✔ Download and installation successful[0m
 You can now load the package via spacy.load('en_core_web_sm')
-hook_0: 3.40s  Smart contracts can move money in under a second.
-hook_1: 4.00s  But they can't judge work. Did the freelancer actu
-hook_2: 5.83s  Today, most AI and crypto apps answer that with on
-hook_3: 2.40s  And one sneaky prompt can fool it.
-how_0: 8.45s  Meet Zenith, an optimistic AI oracle on Solana. An
-how_1: 7.95s  For sixty seconds, anyone who disagrees can challe
-how_2: 4.15s  If someone does, a jury of three different AI mode
-how_3: 4.55s  The losing side's bond is slashed, and paid to the
-escrow_0: 5.35s  Our first app is a stablecoin escrow. A client loc
-escrow_1: 2.05s  The freelancer delivers.
-escrow_2: 1.85s  Zenith decides,
-escrow_3: 5.83s  and the escrow either pays the freelancer, or refu
-honest_0: 4.97s  Here it is, live on Solana devnet. The client lock
-honest_1: 3.12s  The freelancer submits three good tagline lines.
-honest_2: 3.80s  The solver says yes, and bonds point zero five SOL
-honest_3: 4.80s  The watcher agrees, the window closes, and the esc
-honest_4: 7.58s  For this recording, the judges run in mock mode, s
-attack_0: 7.05s  Now, the attack. Instead of the work, the freelanc
-attack_1: 2.27s  A naive solver falls for it.
-attack_2: 3.83s  Fifteen seconds later, the watcher challenges with
-attack_3: 3.30s  Juror one votes no. Juror two votes no.
-attack_4: 3.60s  Final verdict: no. The client is refunded,
-attack_5: 3.60s  and the cheating solver loses its bond to the watc
-proof_0: 2.98s  And every step is a real transaction.
-proof_1: 5.50s  Six of them, forty seconds end to end. You can che
-why_0: 6.00s  This only works this fast on Solana. Sixty second 
-why_1: 5.95s  Near-zero fees keep bonds and challenges cheap eno
-why_2: 4.20s  And any program can read a Zenith verdict, straigh
-why_3: 6.12s  Escrow is just the start. Next come insurance clai
-end_0: 2.88s  Zenith. AI answers you can challenge.
+hook2_0: 5.70s  This freelancer is about to trick an AI judge into
+hook2_1: 1.95s  Watch what Zenith does.
+live_0: 6.10s  Here's a real run on Solana devnet. The client loc
+live_1: 7.22s  Instead of the work, the freelancer submits a prom
+live_2: 4.38s  A naive AI solver falls for it, and stakes its bon
+live_3: 5.12s  Seconds later, a watcher disagrees, and challenges
+live_4: 2.55s  Two independent jurors vote no.
+live_5: 5.42s  The escrow refunds the client, and the solver's bo
+live_6: 7.22s  For a reproducible recording, the judges here run 
+appview_0: 5.88s  And here's the same case in the Zenith app: the ch
+proof2_0: 5.50s  Every step is a real transaction, and you can chec
 TTS_DONE
