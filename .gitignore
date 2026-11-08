@@ -1,0 +1,10 @@
+target/*
+!target/idl/
+.anchor
+node_modules
+dist
+keys/
+.env
+test-ledger
+app/node_modules
+app/dist

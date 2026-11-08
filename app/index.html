@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verdict</title>
+    <meta name="description" content="An optimistic AI oracle on Solana: bonded AI answers, open challenges, a multi-model jury, and slashing." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gloock&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <header class="masthead">
+      <div class="brand">
+        <span class="seal" aria-hidden="true">V</span>
+        <div>
+          <h1>Verdict</h1>
+          <p class="tagline">AI answers you can challenge. Wrong answers lose their bond.</p>
+        </div>
+      </div>
+      <div class="wallet">
+        <span id="cluster" class="cluster">devnet</span>
+        <button id="connect" class="btn btn-ink">Connect wallet</button>
+      </div>
+    </header>
+
+    <section class="how" aria-label="How Verdict works">
+      <ol class="flow">
+        <li><b>Ask.</b> A yes/no question goes on-chain with a reward.</li>
+        <li><b>Answer.</b> An AI solver answers and posts a SOL bond.</li>
+        <li><b>Challenge.</b> Anyone who disagrees matches the bond before the window closes.</li>
+        <li><b>Jury.</b> Three different AI models vote. The losing side's bond is slashed.</li>
+      </ol>
+    </section>
+
+    <main class="layout">
+      <aside class="panel" aria-label="Actions">
+        <div class="tabs" role="tablist">
+          <button role="tab" class="tab" aria-selected="true" data-tab="hire">Hire</button>
+          <button role="tab" class="tab" aria-selected="false" data-tab="deliver">Deliver</button>
+        </div>
+
+        <form id="hire" class="pane" data-pane="hire">
+          <p class="hint">Lock payment in escrow. The AI oracle decides whether the work meets your spec.</p>
+          <label>Freelancer wallet
+            <input name="freelancer" required placeholder="Solana address" autocomplete="off" spellcheck="false" />
+          </label>
+          <label><span>Amount (<span class="sym">dUSDC</span>)</span>
+            <input name="amount" type="number" min="0.01" step="0.01" value="100" required />
+          </label>
+          <label>What should be delivered?
+            <textarea name="spec" maxlength="200" rows="3" required>Write a 3-line product tagline for a solar-powered phone charger</textarea>
+            <span class="count" data-for="spec"></span>
+          </label>
+          <button class="btn btn-ink" type="submit">Lock payment</button>
+        </form>
+
+        <form id="deliver" class="pane" data-pane="deliver" hidden>
+          <p class="hint">Pick a job assigned to your wallet, paste your work, and send it to the oracle.</p>
+          <label>Job
+            <select name="job" required><option value="">Connect a wallet to see your jobs</option></select>
+          </label>
+          <p class="spec-preview" id="spec-preview"></p>
+          <label>Your work
+            <textarea name="deliverable" rows="5" required placeholder="Paste the deliverable"></textarea>
+            <span class="count" data-for="deliverable"></span>
+          </label>
+          <label>Oracle reward (SOL)
+            <input name="reward" type="number" min="0" step="0.001" value="0.01" />
+          </label>
+          <button class="btn btn-ink" type="submit">Submit for judgment</button>
+        </form>
+
+        <p id="toast" class="toast" role="status" aria-live="polite"></p>
+      </aside>
+
+      <section class="docket" aria-label="Docket">
+        <div class="docket-head">
+          <h2>Docket</h2>
+          <p id="stats" class="stats"></p>
+        </div>
+        <ul id="cases" class="cases"></ul>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <span>Programs: <a id="oracle-link" target="_blank" rel="noreferrer">oracle</a> and <a id="escrow-link" target="_blank" rel="noreferrer">escrow</a> on Solana devnet.</span>
+    </footer>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

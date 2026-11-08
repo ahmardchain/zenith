@@ -1,0 +1,8 @@
+{
+  "rpc": "https://api.devnet.solana.com",
+  "oracle": "DEjq4NvHqjQbxFNixAxA9e9JDQX3NK6ApiPsKCg9VWXy",
+  "escrow": "BfcuGfS8XsYbKR5UCSXKuV74HgPQWfWhRUYcXXwq933p",
+  "mint": "So11111111111111111111111111111111111111112",
+  "mintSymbol": "dUSDC",
+  "mintDecimals": 6
+}
