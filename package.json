@@ -15,7 +15,8 @@
     "faucet": "tsx node/faucet.ts",
     "test:anchor": "anchor test --provider.cluster localnet",
     "build:web": "npm --prefix app ci && npm --prefix app run build",
-    "deploy:web": "npm run build:web && npx wrangler@4 pages deploy app/dist --project-name zenith-oracle --branch main"
+    "deploy:web": "npm run build:web && npx wrangler@4 pages deploy app/dist --project-name zenith-oracle --branch main",
+    "proof": "tsx node/proof.ts"
   },
   "dependencies": {
     "@coral-xyz/anchor": "0.32.1",
