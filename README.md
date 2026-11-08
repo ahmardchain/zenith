@@ -25,6 +25,14 @@ An **optimistic AI oracle on Solana**: an AI solver answers a yes/no question an
 | **Escrow program** | `BfcuGfS8XsYbKR5UCSXKuV74HgPQWfWhRUYcXXwq933p` (update after deploy) |
 | **Stack** | Anchor (Rust) · TypeScript nodes · Vite web app · any OpenAI-compatible LLM |
 
+## ⏱️ Verify in 2 minutes
+
+| Path | Needs | What you'll see |
+|---|---|---|
+| **No wallet, no install** | the hosted app with `?preview` | The docket with a live challenge window, a jury-decided case and an unchallenged case |
+| **No keys** | `npm run demo` after setup | Both scenarios end to end on devnet; the judge runs in labeled MOCK mode without an LLM key |
+| **Full** | devnet wallet + LLM key | Hire, deliver, challenge and settle from your own Phantom wallet (`npm run faucet -- <wallet>` for test dUSDC) |
+
 ---
 
 ## 🧩 The problem
