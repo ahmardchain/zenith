@@ -1,8 +1,8 @@
 {
   "rpc": "https://api.devnet.solana.com",
-  "oracle": "DEjq4NvHqjQbxFNixAxA9e9JDQX3NK6ApiPsKCg9VWXy",
-  "escrow": "BfcuGfS8XsYbKR5UCSXKuV74HgPQWfWhRUYcXXwq933p",
-  "mint": "So11111111111111111111111111111111111111112",
+  "oracle": "BwhUSJMFrZbK6Ac4vydsEDYSSz3FZSAdLehBoF7C42mj",
+  "escrow": "ERkb4H2QoMxBwqKuxStXEsJXUF2idiDRnpkRPWapV46Y",
+  "mint": "2ejzVZ7up1LhiVD9ikwvdC2KJ2jdfc1PNi3UvojgaqwY",
   "mintSymbol": "dUSDC",
   "mintDecimals": 6
 }

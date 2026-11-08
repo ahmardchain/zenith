@@ -15,12 +15,12 @@ use anchor_spl::token_interface::{
     transfer_checked, Mint, TokenAccount, TokenInterface, TransferChecked,
 };
 
-declare_id!("BfcuGfS8XsYbKR5UCSXKuV74HgPQWfWhRUYcXXwq933p");
+declare_id!("ERkb4H2QoMxBwqKuxStXEsJXUF2idiDRnpkRPWapV46Y");
 
 /// Program ID of the deployed Zenith oracle. Update after `anchor keys sync`
 /// (`npm run sync-ids` does this for you).
 pub const ORACLE_PROGRAM_ID: Pubkey =
-    anchor_lang::pubkey!("DEjq4NvHqjQbxFNixAxA9e9JDQX3NK6ApiPsKCg9VWXy");
+    anchor_lang::pubkey!("BwhUSJMFrZbK6Ac4vydsEDYSSz3FZSAdLehBoF7C42mj");
 
 /// sha256("account:Request")[..8] — Anchor discriminator of the oracle Request.
 pub const REQUEST_DISCRIMINATOR: [u8; 8] = [125, 172, 150, 161, 162, 115, 39, 71];

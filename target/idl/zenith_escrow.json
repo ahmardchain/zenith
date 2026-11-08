@@ -1,5 +1,5 @@
 {
-  "address": "BfcuGfS8XsYbKR5UCSXKuV74HgPQWfWhRUYcXXwq933p",
+  "address": "ERkb4H2QoMxBwqKuxStXEsJXUF2idiDRnpkRPWapV46Y",
   "metadata": {
     "name": "zenith_escrow",
     "version": "0.1.0",
@@ -110,25 +110,23 @@
       ]
     },
     {
-      "name": "submit_work",
+      "name": "refund_expired",
       "docs": [
-        "Freelancer attaches a fresh oracle request that judges their work.",
-        "The prompt must start with the job's own spec, so the freelancer cannot",
-        "rewrite what is being judged."
+        "Client reclaims funds if no work was attached before the deadline."
       ],
       "discriminator": [
-        158,
-        80,
-        101,
-        51,
-        114,
-        130,
-        101,
-        253
+        118,
+        153,
+        164,
+        244,
+        40,
+        128,
+        242,
+        250
       ],
       "accounts": [
         {
-          "name": "freelancer",
+          "name": "client",
           "signer": true,
           "relations": [
             "job"
@@ -139,7 +137,39 @@
           "writable": true
         },
         {
-          "name": "request"
+          "name": "mint",
+          "relations": [
+            "job"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "job"
+              }
+            ]
+          }
+        },
+        {
+          "name": "client_token",
+          "writable": true
+        },
+        {
+          "name": "token_program"
         }
       ],
       "args": []
@@ -212,23 +242,25 @@
       "args": []
     },
     {
-      "name": "refund_expired",
+      "name": "submit_work",
       "docs": [
-        "Client reclaims funds if no work was attached before the deadline."
+        "Freelancer attaches a fresh oracle request that judges their work.",
+        "The prompt must start with the job's own spec, so the freelancer cannot",
+        "rewrite what is being judged."
       ],
       "discriminator": [
-        118,
-        153,
-        164,
-        244,
-        40,
-        128,
-        242,
-        250
+        158,
+        80,
+        101,
+        51,
+        114,
+        130,
+        101,
+        253
       ],
       "accounts": [
         {
-          "name": "client",
+          "name": "freelancer",
           "signer": true,
           "relations": [
             "job"
@@ -239,39 +271,7 @@
           "writable": true
         },
         {
-          "name": "mint",
-          "relations": [
-            "job"
-          ]
-        },
-        {
-          "name": "vault",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  118,
-                  97,
-                  117,
-                  108,
-                  116
-                ]
-              },
-              {
-                "kind": "account",
-                "path": "job"
-              }
-            ]
-          }
-        },
-        {
-          "name": "client_token",
-          "writable": true
-        },
-        {
-          "name": "token_program"
+          "name": "request"
         }
       ],
       "args": []
@@ -292,121 +292,45 @@
       ]
     }
   ],
-  "types": [
-    {
-      "name": "Job",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "client",
-            "type": "pubkey"
-          },
-          {
-            "name": "freelancer",
-            "type": "pubkey"
-          },
-          {
-            "name": "mint",
-            "type": "pubkey"
-          },
-          {
-            "name": "job_id",
-            "type": "u64"
-          },
-          {
-            "name": "amount",
-            "type": "u64"
-          },
-          {
-            "name": "deadline",
-            "type": "i64"
-          },
-          {
-            "name": "status",
-            "type": "u8"
-          },
-          {
-            "name": "request",
-            "docs": [
-              "The Zenith oracle request judging this job (default until submitted)."
-            ],
-            "type": "pubkey"
-          },
-          {
-            "name": "bump",
-            "type": "u8"
-          },
-          {
-            "name": "vault_bump",
-            "type": "u8"
-          },
-          {
-            "name": "spec",
-            "type": "string"
-          }
-        ]
-      }
-    },
+  "events": [
     {
       "name": "JobCreated",
-      "type": {
-        "fields": [
-          {
-            "name": "job",
-            "type": "pubkey"
-          },
-          {
-            "name": "client",
-            "type": "pubkey"
-          },
-          {
-            "name": "freelancer",
-            "type": "pubkey"
-          },
-          {
-            "name": "amount",
-            "type": "u64"
-          }
-        ],
-        "kind": "struct"
-      }
-    },
-    {
-      "name": "WorkSubmitted",
-      "type": {
-        "fields": [
-          {
-            "name": "job",
-            "type": "pubkey"
-          },
-          {
-            "name": "request",
-            "type": "pubkey"
-          }
-        ],
-        "kind": "struct"
-      }
+      "discriminator": [
+        48,
+        110,
+        162,
+        177,
+        67,
+        74,
+        159,
+        131
+      ]
     },
     {
       "name": "JobSettled",
-      "type": {
-        "fields": [
-          {
-            "name": "job",
-            "type": "pubkey"
-          },
-          {
-            "name": "verdict",
-            "type": "u8"
-          },
-          {
-            "name": "amount",
-            "type": "u64"
-          }
-        ],
-        "kind": "struct"
-      }
+      "discriminator": [
+        130,
+        105,
+        205,
+        34,
+        87,
+        86,
+        152,
+        27
+      ]
+    },
+    {
+      "name": "WorkSubmitted",
+      "discriminator": [
+        136,
+        185,
+        210,
+        174,
+        216,
+        140,
+        64,
+        125
+      ]
     }
   ],
   "errors": [
@@ -471,45 +395,121 @@
       "msg": "Deadline has not passed yet"
     }
   ],
-  "events": [
+  "types": [
     {
-      "discriminator": [
-        48,
-        110,
-        162,
-        177,
-        67,
-        74,
-        159,
-        131
-      ],
-      "name": "JobCreated"
+      "name": "Job",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "client",
+            "type": "pubkey"
+          },
+          {
+            "name": "freelancer",
+            "type": "pubkey"
+          },
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "job_id",
+            "type": "u64"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "deadline",
+            "type": "i64"
+          },
+          {
+            "name": "status",
+            "type": "u8"
+          },
+          {
+            "name": "request",
+            "docs": [
+              "The Zenith oracle request judging this job (default until submitted)."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "vault_bump",
+            "type": "u8"
+          },
+          {
+            "name": "spec",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
-      "discriminator": [
-        136,
-        185,
-        210,
-        174,
-        216,
-        140,
-        64,
-        125
-      ],
-      "name": "WorkSubmitted"
+      "name": "JobCreated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "job",
+            "type": "pubkey"
+          },
+          {
+            "name": "client",
+            "type": "pubkey"
+          },
+          {
+            "name": "freelancer",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ]
+      }
     },
     {
-      "discriminator": [
-        130,
-        105,
-        205,
-        34,
-        87,
-        86,
-        152,
-        27
-      ],
-      "name": "JobSettled"
+      "name": "JobSettled",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "job",
+            "type": "pubkey"
+          },
+          {
+            "name": "verdict",
+            "type": "u8"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "WorkSubmitted",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "job",
+            "type": "pubkey"
+          },
+          {
+            "name": "request",
+            "type": "pubkey"
+          }
+        ]
+      }
     }
   ]
 }

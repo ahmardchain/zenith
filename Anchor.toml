@@ -5,13 +5,16 @@ anchor_version = "0.32.1"
 resolution = true
 skip-lint = false
 
-[programs.localnet]
-zenith_oracle = "DEjq4NvHqjQbxFNixAxA9e9JDQX3NK6ApiPsKCg9VWXy"
-zenith_escrow = "BfcuGfS8XsYbKR5UCSXKuV74HgPQWfWhRUYcXXwq933p"
-
 [programs.devnet]
-zenith_oracle = "DEjq4NvHqjQbxFNixAxA9e9JDQX3NK6ApiPsKCg9VWXy"
+zenith_escrow = "ERkb4H2QoMxBwqKuxStXEsJXUF2idiDRnpkRPWapV46Y"
+zenith_oracle = "BwhUSJMFrZbK6Ac4vydsEDYSSz3FZSAdLehBoF7C42mj"
+
+[programs.localnet]
 zenith_escrow = "BfcuGfS8XsYbKR5UCSXKuV74HgPQWfWhRUYcXXwq933p"
+zenith_oracle = "DEjq4NvHqjQbxFNixAxA9e9JDQX3NK6ApiPsKCg9VWXy"
+
+[registry]
+url = "https://api.apr.dev"
 
 [provider]
 cluster = "devnet"

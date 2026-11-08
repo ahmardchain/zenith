@@ -14,7 +14,7 @@
 use anchor_lang::prelude::*;
 use anchor_lang::system_program::{transfer, Transfer};
 
-declare_id!("DEjq4NvHqjQbxFNixAxA9e9JDQX3NK6ApiPsKCg9VWXy");
+declare_id!("BwhUSJMFrZbK6Ac4vydsEDYSSz3FZSAdLehBoF7C42mj");
 
 pub const MAX_PROMPT_LEN: usize = 600;
 pub const MAX_REASONING_LEN: usize = 200;

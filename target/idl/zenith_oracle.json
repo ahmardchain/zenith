@@ -1,5 +1,5 @@
 {
-  "address": "DEjq4NvHqjQbxFNixAxA9e9JDQX3NK6ApiPsKCg9VWXy",
+  "address": "BwhUSJMFrZbK6Ac4vydsEDYSSz3FZSAdLehBoF7C42mj",
   "metadata": {
     "name": "zenith_oracle",
     "version": "0.1.0",
@@ -8,44 +8,60 @@
   },
   "instructions": [
     {
-      "name": "initialize",
+      "name": "cancel_request",
       "docs": [
-        "One-time setup of the oracle parameters and the juror set."
+        "Requester withdraws an unanswered request and gets the reward back."
       ],
       "discriminator": [
-        175,
-        175,
-        109,
-        31,
-        13,
-        152,
-        155,
-        237
+        65,
+        196,
+        177,
+        247,
+        83,
+        151,
+        33,
+        130
       ],
       "accounts": [
         {
-          "name": "admin",
+          "name": "requester",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "request"
+          ]
+        },
+        {
+          "name": "request",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "challenge",
+      "docs": [
+        "Anyone who disagrees can dispute within the window by matching the bond."
+      ],
+      "discriminator": [
+        16,
+        107,
+        14,
+        39,
+        244,
+        150,
+        81,
+        187
+      ],
+      "accounts": [
+        {
+          "name": "challenger",
           "writable": true,
           "signer": true
         },
         {
-          "name": "config",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  99,
-                  111,
-                  110,
-                  102,
-                  105,
-                  103
-                ]
-              }
-            ]
-          }
+          "name": "request",
+          "writable": true
         },
         {
           "name": "system_program",
@@ -54,66 +70,12 @@
       ],
       "args": [
         {
-          "name": "params",
-          "type": {
-            "defined": {
-              "name": "ConfigParams"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "update_config",
-      "docs": [
-        "Admin can tune bond size, windows and rotate jurors (demo convenience)."
-      ],
-      "discriminator": [
-        29,
-        158,
-        252,
-        191,
-        10,
-        83,
-        219,
-        99
-      ],
-      "accounts": [
-        {
-          "name": "admin",
-          "signer": true,
-          "relations": [
-            "config"
-          ]
+          "name": "verdict",
+          "type": "u8"
         },
         {
-          "name": "config",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  99,
-                  111,
-                  110,
-                  102,
-                  105,
-                  103
-                ]
-              }
-            ]
-          }
-        }
-      ],
-      "args": [
-        {
-          "name": "params",
-          "type": {
-            "defined": {
-              "name": "ConfigParams"
-            }
-          }
+          "name": "reasoning",
+          "type": "string"
         }
       ]
     },
@@ -211,6 +173,126 @@
       ]
     },
     {
+      "name": "expire_dispute",
+      "docs": [
+        "Safety valve: if a dispute is not resolved before the jury timeout,",
+        "both bonds are returned and the reward goes back to the requester."
+      ],
+      "discriminator": [
+        241,
+        116,
+        178,
+        182,
+        234,
+        173,
+        61,
+        120
+      ],
+      "accounts": [
+        {
+          "name": "request",
+          "writable": true
+        },
+        {
+          "name": "proposer",
+          "writable": true
+        },
+        {
+          "name": "challenger",
+          "writable": true
+        },
+        {
+          "name": "requester",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "finalize",
+      "docs": [
+        "Unchallenged answer: after the window passes anyone can finalize it.",
+        "The proposer gets the reward and their bond back."
+      ],
+      "discriminator": [
+        171,
+        61,
+        218,
+        56,
+        127,
+        115,
+        12,
+        217
+      ],
+      "accounts": [
+        {
+          "name": "request",
+          "writable": true
+        },
+        {
+          "name": "proposer",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "initialize",
+      "docs": [
+        "One-time setup of the oracle parameters and the juror set."
+      ],
+      "discriminator": [
+        175,
+        175,
+        109,
+        31,
+        13,
+        152,
+        155,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": {
+              "name": "ConfigParams"
+            }
+          }
+        }
+      ]
+    },
+    {
       "name": "propose",
       "docs": [
         "An AI solver answers, putting up a bond that can be slashed."
@@ -252,43 +334,56 @@
       ]
     },
     {
-      "name": "challenge",
+      "name": "update_config",
       "docs": [
-        "Anyone who disagrees can dispute within the window by matching the bond."
+        "Admin can tune bond size, windows and rotate jurors (demo convenience)."
       ],
       "discriminator": [
-        16,
-        107,
-        14,
-        39,
-        244,
-        150,
-        81,
-        187
+        29,
+        158,
+        252,
+        191,
+        10,
+        83,
+        219,
+        99
       ],
       "accounts": [
         {
-          "name": "challenger",
+          "name": "admin",
+          "signer": true,
+          "relations": [
+            "config"
+          ]
+        },
+        {
+          "name": "config",
           "writable": true,
-          "signer": true
-        },
-        {
-          "name": "request",
-          "writable": true
-        },
-        {
-          "name": "system_program",
-          "address": "11111111111111111111111111111111"
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
         }
       ],
       "args": [
         {
-          "name": "verdict",
-          "type": "u8"
-        },
-        {
-          "name": "reasoning",
-          "type": "string"
+          "name": "params",
+          "type": {
+            "defined": {
+              "name": "ConfigParams"
+            }
+          }
         }
       ]
     },
@@ -351,101 +446,6 @@
           "type": "u8"
         }
       ]
-    },
-    {
-      "name": "finalize",
-      "docs": [
-        "Unchallenged answer: after the window passes anyone can finalize it.",
-        "The proposer gets the reward and their bond back."
-      ],
-      "discriminator": [
-        171,
-        61,
-        218,
-        56,
-        127,
-        115,
-        12,
-        217
-      ],
-      "accounts": [
-        {
-          "name": "request",
-          "writable": true
-        },
-        {
-          "name": "proposer",
-          "writable": true
-        }
-      ],
-      "args": []
-    },
-    {
-      "name": "expire_dispute",
-      "docs": [
-        "Safety valve: if a dispute is not resolved before the jury timeout,",
-        "both bonds are returned and the reward goes back to the requester."
-      ],
-      "discriminator": [
-        241,
-        116,
-        178,
-        182,
-        234,
-        173,
-        61,
-        120
-      ],
-      "accounts": [
-        {
-          "name": "request",
-          "writable": true
-        },
-        {
-          "name": "proposer",
-          "writable": true
-        },
-        {
-          "name": "challenger",
-          "writable": true
-        },
-        {
-          "name": "requester",
-          "writable": true
-        }
-      ],
-      "args": []
-    },
-    {
-      "name": "cancel_request",
-      "docs": [
-        "Requester withdraws an unanswered request and gets the reward back."
-      ],
-      "discriminator": [
-        65,
-        196,
-        177,
-        247,
-        83,
-        151,
-        33,
-        130
-      ],
-      "accounts": [
-        {
-          "name": "requester",
-          "writable": true,
-          "signer": true,
-          "relations": [
-            "request"
-          ]
-        },
-        {
-          "name": "request",
-          "writable": true
-        }
-      ],
-      "args": []
     }
   ],
   "accounts": [
@@ -476,7 +476,166 @@
       ]
     }
   ],
+  "events": [
+    {
+      "name": "Challenged",
+      "discriminator": [
+        208,
+        48,
+        104,
+        229,
+        231,
+        85,
+        175,
+        193
+      ]
+    },
+    {
+      "name": "Finalized",
+      "discriminator": [
+        4,
+        77,
+        242,
+        80,
+        20,
+        152,
+        247,
+        252
+      ]
+    },
+    {
+      "name": "Proposed",
+      "discriminator": [
+        216,
+        37,
+        138,
+        141,
+        130,
+        208,
+        180,
+        153
+      ]
+    },
+    {
+      "name": "RequestCreated",
+      "discriminator": [
+        102,
+        44,
+        0,
+        225,
+        163,
+        110,
+        167,
+        187
+      ]
+    },
+    {
+      "name": "Voted",
+      "discriminator": [
+        189,
+        74,
+        101,
+        127,
+        109,
+        214,
+        95,
+        130
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "EmptyPrompt",
+      "msg": "Prompt must not be empty"
+    },
+    {
+      "code": 6001,
+      "name": "PromptTooLong",
+      "msg": "Prompt is too long"
+    },
+    {
+      "code": 6002,
+      "name": "ReasoningTooLong",
+      "msg": "Reasoning is too long"
+    },
+    {
+      "code": 6003,
+      "name": "InvalidVerdict",
+      "msg": "Verdict must be 1 (YES) or 2 (NO)"
+    },
+    {
+      "code": 6004,
+      "name": "WrongStatus",
+      "msg": "Request is not in the right status for this action"
+    },
+    {
+      "code": 6005,
+      "name": "ChallengeWindowClosed",
+      "msg": "Challenge window has closed"
+    },
+    {
+      "code": 6006,
+      "name": "ChallengeWindowOpen",
+      "msg": "Challenge window is still open"
+    },
+    {
+      "code": 6007,
+      "name": "ChallengeMustDisagree",
+      "msg": "A challenge must propose the opposite verdict"
+    },
+    {
+      "code": 6008,
+      "name": "SelfChallenge",
+      "msg": "Proposer cannot challenge their own answer"
+    },
+    {
+      "code": 6009,
+      "name": "NotAJuror",
+      "msg": "Signer is not a registered juror"
+    },
+    {
+      "code": 6010,
+      "name": "AlreadyVoted",
+      "msg": "Juror already voted on this request"
+    },
+    {
+      "code": 6011,
+      "name": "JuryStillOpen",
+      "msg": "Jury timeout has not passed yet"
+    },
+    {
+      "code": 6012,
+      "name": "InvalidConfig",
+      "msg": "Invalid config"
+    },
+    {
+      "code": 6013,
+      "name": "MathOverflow",
+      "msg": "Math overflow"
+    }
+  ],
   "types": [
+    {
+      "name": "Challenged",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "request",
+            "type": "pubkey"
+          },
+          {
+            "name": "challenger",
+            "type": "pubkey"
+          },
+          {
+            "name": "verdict",
+            "type": "u8"
+          }
+        ]
+      }
+    },
     {
       "name": "Config",
       "type": {
@@ -548,6 +707,58 @@
                 3
               ]
             }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Finalized",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "request",
+            "type": "pubkey"
+          },
+          {
+            "name": "verdict",
+            "type": "u8"
+          },
+          {
+            "name": "winner",
+            "type": "pubkey"
+          },
+          {
+            "name": "slashed",
+            "type": "pubkey"
+          },
+          {
+            "name": "disputed",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Proposed",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "request",
+            "type": "pubkey"
+          },
+          {
+            "name": "proposer",
+            "type": "pubkey"
+          },
+          {
+            "name": "verdict",
+            "type": "u8"
+          },
+          {
+            "name": "challenge_deadline",
+            "type": "i64"
           }
         ]
       }
@@ -664,100 +875,9 @@
       }
     },
     {
-      "name": "Challenged",
-      "type": {
-        "fields": [
-          {
-            "name": "request",
-            "type": "pubkey"
-          },
-          {
-            "name": "challenger",
-            "type": "pubkey"
-          },
-          {
-            "name": "verdict",
-            "type": "u8"
-          }
-        ],
-        "kind": "struct"
-      }
-    },
-    {
-      "name": "Finalized",
-      "type": {
-        "fields": [
-          {
-            "name": "request",
-            "type": "pubkey"
-          },
-          {
-            "name": "verdict",
-            "type": "u8"
-          },
-          {
-            "name": "winner",
-            "type": "pubkey"
-          },
-          {
-            "name": "slashed",
-            "type": "pubkey"
-          },
-          {
-            "name": "disputed",
-            "type": "bool"
-          }
-        ],
-        "kind": "struct"
-      }
-    },
-    {
-      "name": "Proposed",
-      "type": {
-        "fields": [
-          {
-            "name": "request",
-            "type": "pubkey"
-          },
-          {
-            "name": "proposer",
-            "type": "pubkey"
-          },
-          {
-            "name": "verdict",
-            "type": "u8"
-          },
-          {
-            "name": "challenge_deadline",
-            "type": "i64"
-          }
-        ],
-        "kind": "struct"
-      }
-    },
-    {
-      "name": "Voted",
-      "type": {
-        "fields": [
-          {
-            "name": "request",
-            "type": "pubkey"
-          },
-          {
-            "name": "juror",
-            "type": "pubkey"
-          },
-          {
-            "name": "verdict",
-            "type": "u8"
-          }
-        ],
-        "kind": "struct"
-      }
-    },
-    {
       "name": "RequestCreated",
       "type": {
+        "kind": "struct",
         "fields": [
           {
             "name": "request",
@@ -775,148 +895,28 @@
             "name": "reward",
             "type": "u64"
           }
-        ],
-        "kind": "struct"
+        ]
       }
-    }
-  ],
-  "errors": [
-    {
-      "code": 6000,
-      "name": "EmptyPrompt",
-      "msg": "Prompt must not be empty"
     },
     {
-      "code": 6001,
-      "name": "PromptTooLong",
-      "msg": "Prompt is too long"
-    },
-    {
-      "code": 6002,
-      "name": "ReasoningTooLong",
-      "msg": "Reasoning is too long"
-    },
-    {
-      "code": 6003,
-      "name": "InvalidVerdict",
-      "msg": "Verdict must be 1 (YES) or 2 (NO)"
-    },
-    {
-      "code": 6004,
-      "name": "WrongStatus",
-      "msg": "Request is not in the right status for this action"
-    },
-    {
-      "code": 6005,
-      "name": "ChallengeWindowClosed",
-      "msg": "Challenge window has closed"
-    },
-    {
-      "code": 6006,
-      "name": "ChallengeWindowOpen",
-      "msg": "Challenge window is still open"
-    },
-    {
-      "code": 6007,
-      "name": "ChallengeMustDisagree",
-      "msg": "A challenge must propose the opposite verdict"
-    },
-    {
-      "code": 6008,
-      "name": "SelfChallenge",
-      "msg": "Proposer cannot challenge their own answer"
-    },
-    {
-      "code": 6009,
-      "name": "NotAJuror",
-      "msg": "Signer is not a registered juror"
-    },
-    {
-      "code": 6010,
-      "name": "AlreadyVoted",
-      "msg": "Juror already voted on this request"
-    },
-    {
-      "code": 6011,
-      "name": "JuryStillOpen",
-      "msg": "Jury timeout has not passed yet"
-    },
-    {
-      "code": 6012,
-      "name": "InvalidConfig",
-      "msg": "Invalid config"
-    },
-    {
-      "code": 6013,
-      "name": "MathOverflow",
-      "msg": "Math overflow"
-    }
-  ],
-  "events": [
-    {
-      "discriminator": [
-        208,
-        48,
-        104,
-        229,
-        231,
-        85,
-        175,
-        193
-      ],
-      "name": "Challenged"
-    },
-    {
-      "discriminator": [
-        4,
-        77,
-        242,
-        80,
-        20,
-        152,
-        247,
-        252
-      ],
-      "name": "Finalized"
-    },
-    {
-      "discriminator": [
-        216,
-        37,
-        138,
-        141,
-        130,
-        208,
-        180,
-        153
-      ],
-      "name": "Proposed"
-    },
-    {
-      "discriminator": [
-        189,
-        74,
-        101,
-        127,
-        109,
-        214,
-        95,
-        130
-      ],
-      "name": "Voted"
-    },
-    {
-      "discriminator": [
-        102,
-        44,
-        0,
-        225,
-        163,
-        110,
-        167,
-        187
-      ],
-      "name": "RequestCreated"
+      "name": "Voted",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "request",
+            "type": "pubkey"
+          },
+          {
+            "name": "juror",
+            "type": "pubkey"
+          },
+          {
+            "name": "verdict",
+            "type": "u8"
+          }
+        ]
+      }
     }
   ]
 }
