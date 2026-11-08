@@ -23,8 +23,9 @@ An **optimistic AI oracle on Solana**: an AI solver answers a yes/no question an
 | **Live app** | [zenith.ahmardchain.workers.dev](https://zenith.ahmardchain.workers.dev/) · [sample cases, no wallet](https://zenith.ahmardchain.workers.dev/?preview) |
 | **Demo video** | _add YouTube link_ |
 | **Network** | Solana devnet |
-| **Oracle program** | `DEjq4NvHqjQbxFNixAxA9e9JDQX3NK6ApiPsKCg9VWXy` (update after deploy) |
-| **Escrow program** | `BfcuGfS8XsYbKR5UCSXKuV74HgPQWfWhRUYcXXwq933p` (update after deploy) |
+| **Oracle program** | [`BwhUSJMFrZbK6Ac4vydsEDYSSz3FZSAdLehBoF7C42mj`](https://explorer.solana.com/address/BwhUSJMFrZbK6Ac4vydsEDYSSz3FZSAdLehBoF7C42mj?cluster=devnet) |
+| **Escrow program** | [`ERkb4H2QoMxBwqKuxStXEsJXUF2idiDRnpkRPWapV46Y`](https://explorer.solana.com/address/ERkb4H2QoMxBwqKuxStXEsJXUF2idiDRnpkRPWapV46Y?cluster=devnet) |
+| **Test token (dUSDC)** | [`2ejzVZ7up1LhiVD9ikwvdC2KJ2jdfc1PNi3UvojgaqwY`](https://explorer.solana.com/address/2ejzVZ7up1LhiVD9ikwvdC2KJ2jdfc1PNi3UvojgaqwY?cluster=devnet) |
 | **Stack** | Anchor (Rust) · TypeScript nodes · Vite web app · any OpenAI-compatible LLM |
 
 ## ⏱️ Verify in 2 minutes
@@ -214,7 +215,7 @@ OracleRequest::deserialize(&mut &data[8..])
 | Oracle + escrow programs (Rust/Anchor) | ✅ Real, compile clean; Rust tests verify the escrow decodes real oracle account data |
 | Instruction encoding, PDAs, tx sizes | ✅ Verified offline against the generated IDLs |
 | End-to-end flow on a validator | 🛠️ `tests/verdict.ts` (unchallenged path, disputed path with slashing, guard rails); run with `anchor test` |
-| Devnet deployment | ⏳ _Fill in addresses and explorer links after deploy_ |
+| Devnet deployment | ✅ Both programs live on devnet: [oracle](https://explorer.solana.com/address/BwhUSJMFrZbK6Ac4vydsEDYSSz3FZSAdLehBoF7C42mj?cluster=devnet), [escrow](https://explorer.solana.com/address/ERkb4H2QoMxBwqKuxStXEsJXUF2idiDRnpkRPWapV46Y?cluster=devnet) |
 | LLM judging | ✅ Real when `LLM_API_KEY` is set. Otherwise a labeled **MOCK** heuristic judge (keyword coverage + injection detection) for offline rehearsal |
 | Jury decentralization | 🛠️ Three separate keys and three model families, but in this demo one operator runs all three |
 | dUSDC | 🛠️ A test SPL token minted by `npm run setup` (6 decimals, like USDC) |
