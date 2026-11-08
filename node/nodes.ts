@@ -183,7 +183,7 @@ async function keeperTick(oracle: Program, escrow: Program, me: Keypair) {
 }
 
 /** Run the selected roles on a polling loop. Returns a stop() function. */
-export function startNodes(roles: Role[] = ["solver", "watcher", "jury", "keeper"], intervalMs = 3000) {
+export function startNodes(roles: Role[] = ["solver", "watcher", "jury", "keeper"], intervalMs = Number(process.env.POLL_MS ?? 6000)) {
   const solver = roleKeypair("solver");
   const watcher = roleKeypair("watcher");
   const keeper = roleKeypair("keeper");

@@ -92,8 +92,14 @@ async function scenario(name: string, deliverable: string, solverMode: "honest" 
   // 3. Watch the optimistic game play out.
   let last = "";
   for (let i = 0; i < 200; i++) {
-    const r = (await (c.oracle.account as any).request.fetch(request)) as RequestAccount;
-    const j = (await (c.escrow.account as any).job.fetch(job)) as JobAccount;
+    let r: RequestAccount, j: JobAccount;
+    try {
+      r = (await (c.oracle.account as any).request.fetch(request)) as RequestAccount;
+      j = (await (c.escrow.account as any).job.fetch(job)) as JobAccount;
+    } catch {
+      await sleep(5000); // public devnet RPC rate-limits (429); just try again
+      continue;
+    }
     const line = `oracle ${STATUS_NAME[r.status]} | votes ${r.votes.map((v) => VERDICT_NAME[v]).join(",")} | job ${JOB_NAME[j.status]}`;
     if (line !== last) log("status", line);
     last = line;
@@ -101,12 +107,16 @@ async function scenario(name: string, deliverable: string, solverMode: "honest" 
       const verdict = VERDICT_NAME[r.finalVerdict];
       console.log(`\n  RESULT: verdict ${verdict}${r.status === STATUS.FINALIZED && r.challenger.toBase58() !== "11111111111111111111111111111111" ? " (after dispute)" : ""}`);
       console.log(`  Escrow: ${j.status === 2 ? "100 dUSDC paid to freelancer" : "100 dUSDC refunded to client"}`);
-      console.log(`  Solver  SOL change: ${sol((await connection.getBalance(solver.publicKey)) - before.solver)}`);
-      console.log(`  Watcher SOL change: ${sol((await connection.getBalance(watcher.publicKey)) - before.watcher)}`);
+      try {
+        console.log(`  Solver  SOL change: ${sol((await connection.getBalance(solver.publicKey)) - before.solver)}`);
+        console.log(`  Watcher SOL change: ${sol((await connection.getBalance(watcher.publicKey)) - before.watcher)}`);
+      } catch {
+        /* balance lookups are cosmetic */
+      }
       console.log(`  Explorer: https://explorer.solana.com/address/${request}?cluster=devnet`);
       return;
     }
-    await sleep(2000);
+    await sleep(4000);
   }
   log("status", "timed out waiting — are the nodes running?");
 }
