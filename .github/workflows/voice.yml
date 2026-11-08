@@ -1,0 +1,27 @@
+name: Voiceover
+on:
+  push:
+    branches: [video]
+    paths: ["video/narration.json", "video/tts.py", ".github/workflows/voice.yml"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  tts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq espeak-ng
+      - run: pip install -q torch --index-url https://download.pytorch.org/whl/cpu
+      - run: pip install -q "kokoro>=0.9" soundfile
+      - run: python video/tts.py af_heart
+      - uses: actions/upload-artifact@v4
+        with: { name: voice, path: video/voice }
+      - run: |
+          git config user.name "AHMARD"
+          git config user.email "ahmadameen7471@gmail.com"
+          git add video/voice
+          git commit -m "Video: voiceover (Kokoro af_heart) [skip ci]"
+          git push
